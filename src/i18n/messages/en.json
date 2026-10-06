@@ -1,0 +1,64 @@
+{
+  "Home": {
+    "nav": {
+      "ariaLabel": "Main navigation",
+      "features": "Features",
+      "benchmarks": "Performance",
+      "modules": "Modules",
+      "start": "Get started",
+      "community": "Community",
+      "switchLocale": "Ver en español"
+    },
+    "hero": {
+      "eyebrow": "An async-first Python framework",
+      "titleFirst": "Build without limits.",
+      "titleSecond": "Move at Rust speed.",
+      "description": "A modern foundation for ambitious Python applications. Orionis brings a high-performance HTTP engine, clean architecture and a complete developer toolkit together.",
+      "docsCta": "Read the docs",
+      "githubCta": "View on GitHub",
+      "engine": "Granian engine · ASGI + RSGI",
+      "version": "Framework version {version}",
+      "codeLabel": "bootstrap / app.py",
+      "codeTabsLabel": "Code examples",
+      "copyCode": "Copy code",
+      "codeCopied": "Code copied",
+      "codeCaption": "MCP, console, and mail examples"
+    },
+    "metrics": {
+      "requestsValue": "455k+",
+      "requestsLabel": "requests per second",
+      "latencyValue": "< 2 ms",
+      "latencyLabel": "average latency",
+      "speedValue": "10×",
+      "speedLabel": "faster responses"
+    },
+    "features": {
+      "eyebrow": "Made for production",
+      "title": "Everything works better together.",
+      "description": "A cohesive set of capabilities gives teams room to build, test and scale without stitching together a dozen disconnected tools."
+    },
+    "modules": {
+      "eyebrow": "One cohesive toolkit",
+      "title": "A strong foundation at every layer.",
+      "description": "From the first command to the request lifecycle, the pieces are designed to work as one.",
+      "cliTitle": "Reactor CLI",
+      "cliDescription": "Generate components, run tests and inspect your application from one clear command line.",
+      "architectureTitle": "Clean architecture",
+      "architectureDescription": "Keep responsibilities clear with dependency injection, providers and composable middleware.",
+      "securityTitle": "Security by design",
+      "securityDescription": "Build on integrated authentication, encryption and protections aligned with OWASP practices."
+    },
+    "start": {
+      "eyebrow": "Your next project starts here",
+      "title": "Ready to build with Orionis?",
+      "description": "Explore the guides, learn the framework fundamentals and start shaping your next Python application.",
+      "docsCta": "Explore the documentation",
+      "apiCta": "API reference"
+    },
+    "footer": {
+      "madeFor": "Built for developers who care about craft.",
+      "copyright": "© {year} {name}. All rights reserved.",
+      "community": "Join the community"
+    }
+  }
+}

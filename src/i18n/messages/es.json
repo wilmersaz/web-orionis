@@ -1,0 +1,64 @@
+{
+  "Home": {
+    "nav": {
+      "ariaLabel": "Navegación principal",
+      "features": "Características",
+      "benchmarks": "Rendimiento",
+      "modules": "Módulos",
+      "start": "Comenzar",
+      "community": "Comunidad",
+      "switchLocale": "View in English"
+    },
+    "hero": {
+      "eyebrow": "Framework Python async-first",
+      "titleFirst": "Construye sin límites.",
+      "titleSecond": "Muévete a velocidad Rust.",
+      "description": "Una base moderna para aplicaciones Python ambiciosas. Orionis reúne un motor HTTP de alto rendimiento, una arquitectura limpia y un conjunto completo de herramientas para desarrolladores.",
+      "docsCta": "Leer la documentación",
+      "githubCta": "Ver en GitHub",
+      "engine": "Motor Granian · ASGI + RSGI",
+      "version": "Versión del framework {version}",
+      "codeLabel": "bootstrap / app.py",
+      "codeTabsLabel": "Ejemplos de código",
+      "copyCode": "Copiar código",
+      "codeCopied": "Código copiado",
+      "codeCaption": "Ejemplos de MCP, consola y correo"
+    },
+    "metrics": {
+      "requestsValue": "455k+",
+      "requestsLabel": "solicitudes por segundo",
+      "latencyValue": "< 2 ms",
+      "latencyLabel": "latencia promedio",
+      "speedValue": "10×",
+      "speedLabel": "respuestas más rápidas"
+    },
+    "features": {
+      "eyebrow": "Diseñado para producción",
+      "title": "Todo funciona mejor en conjunto.",
+      "description": "Un conjunto cohesivo de capacidades permite crear, probar y escalar sin unir una docena de herramientas desconectadas."
+    },
+    "modules": {
+      "eyebrow": "Un conjunto de herramientas cohesivo",
+      "title": "Una base sólida en cada capa.",
+      "description": "Desde el primer comando hasta el ciclo de vida de cada solicitud, todas las piezas están diseñadas para trabajar juntas.",
+      "cliTitle": "Reactor CLI",
+      "cliDescription": "Genera componentes, ejecuta pruebas e inspecciona tu aplicación desde una línea de comandos clara.",
+      "architectureTitle": "Arquitectura limpia",
+      "architectureDescription": "Mantén claras las responsabilidades con inyección de dependencias, proveedores y middleware componible.",
+      "securityTitle": "Seguridad desde el diseño",
+      "securityDescription": "Desarrolla con autenticación, cifrado y protecciones integradas alineadas con las prácticas OWASP."
+    },
+    "start": {
+      "eyebrow": "Tu próximo proyecto empieza aquí",
+      "title": "¿Listo para crear con Orionis?",
+      "description": "Explora las guías, aprende los fundamentos del framework y empieza a dar forma a tu próxima aplicación Python.",
+      "docsCta": "Explorar documentación",
+      "apiCta": "Referencia de API"
+    },
+    "footer": {
+      "madeFor": "Creado para desarrolladores que cuidan los detalles.",
+      "copyright": "© {year} {name}. Todos los derechos reservados.",
+      "community": "Únete a la comunidad"
+    }
+  }
+}

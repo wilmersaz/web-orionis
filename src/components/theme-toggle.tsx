@@ -9,7 +9,10 @@ interface ThemeToggleProps {
   switchToDarkLabel: string;
 }
 
-export function ThemeToggle({ switchToLightLabel, switchToDarkLabel }: ThemeToggleProps) {
+export function ThemeToggle({
+  switchToLightLabel,
+  switchToDarkLabel,
+}: ThemeToggleProps) {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -26,7 +29,7 @@ export function ThemeToggle({ switchToLightLabel, switchToDarkLabel }: ThemeTogg
       aria-pressed={isDark}
       title={switchLabel}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-line/10 bg-surface-elevated text-ink-300 shadow-sm transition-colors hover:border-line/20 hover:bg-surface-overlay/[0.04] hover:text-brand-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan/60"
+      className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg px-2 text-sm font-medium text-ink-400 transition-colors hover:bg-slate-100 hover:text-ink-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan/60 dark:hover:bg-white/[0.06] dark:hover:text-ink-50 sm:px-2.5"
     >
       <Icon size={17} aria-hidden="true" />
     </button>

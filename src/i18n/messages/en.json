@@ -7,11 +7,14 @@
       "modules": "Modules",
       "start": "Get started",
       "community": "Community",
-      "switchLocale": "Ver en español"
+      "switchLocale": "Ver en español",
+      "localeName": "English"
     },
     "theme": {
       "switchToLight": "Switch to light theme",
-      "switchToDark": "Switch to dark theme"
+      "switchToDark": "Switch to dark theme",
+      "light": "Light",
+      "dark": "Dark"
     },
     "hero": {
       "eyebrow": "An async-first Python framework",

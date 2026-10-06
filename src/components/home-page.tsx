@@ -5,6 +5,7 @@ import {
   Blocks,
   Bot,
   Box,
+  ChevronDown,
   FileCog,
   FlaskConical,
   Gauge,
@@ -170,89 +171,99 @@ print(sender.asHeader())`,
         className="pointer-events-none absolute -right-48 top-72 -z-10 h-96 w-96 rounded-full bg-brand-blue/10 blur-3xl"
       />
 
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
-        <Link href="/" locale={locale} className="group flex items-center gap-3" aria-label={site.fullName}>
-          <img src="/favicon.svg" width={40} height={40} alt="logo" />
-          <span className="hidden text-lg font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:inline">{site.fullName}</span>
-        </Link>
-
-        <nav aria-label={t('nav.ariaLabel')} className="hidden items-center gap-7 lg:flex">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              locale={locale}
-              className="text-sm text-ink-300 transition-colors hover:text-ink-950 dark:hover:text-ink-50"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            locale={alternateLocale}
-            className="rounded-lg border border-line/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink-300 transition-colors hover:border-line/20 hover:text-ink-950 dark:hover:text-ink-50"
-            aria-label={t('nav.switchLocale')}
-          >
-            <span
-              aria-hidden="true"
-              className={`relative block h-4 overflow-hidden rounded-[2px] border border-white/20 shadow-sm ${
-                alternateLocale === 'es' ? 'w-6' : 'w-[30px]'
-              }`}
-            >
-              {alternateLocale === 'es' ? (
-                <>
-                  <span className="absolute inset-0 bg-[#AA151B]" />
-                  <span className="absolute inset-x-0 top-1/4 h-1/2 bg-[#F1BF00]" />
-                </>
-              ) : (
-                <svg
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full"
-                  viewBox="0 0 190 100"
-                  preserveAspectRatio="none"
-                >
-                  <rect width="190" height="100" fill="#FFFFFF" />
-                  {Array.from({ length: 13 }, (_, index) => (
-                    <rect
-                      key={`stripe-${index}`}
-                      width="190"
-                      height={100 / 13 + 0.1}
-                      y={index * (100 / 13)}
-                      fill={index % 2 === 0 ? '#B22234' : '#FFFFFF'}
-                    />
-                  ))}
-                  <rect width="76" height={(7 / 13) * 100} fill="#3C3B6E" />
-                  {Array.from({ length: 9 }, (_, row) =>
-                    Array.from({ length: row % 2 === 0 ? 6 : 5 }, (_, column) => {
-                      const centerX = (row % 2 === 0 ? 7 : 13) + column * 12.3;
-                      const centerY = 3 + row * 5.95;
-                      const points = Array.from({ length: 10 }, (_, point) => {
-                        const angle = (point * Math.PI) / 5 - Math.PI / 2;
-                        const radius = point % 2 === 0 ? 2.3 : 1;
-                        return `${centerX + radius * Math.cos(angle)},${centerY + radius * Math.sin(angle)}`;
-                      }).join(' ');
-
-                      return <polygon key={`${row}-${column}`} points={points} fill="#FFFFFF" />;
-                    }),
-                  )}
-                </svg>
-              )}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/95 text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-white/[0.08] dark:bg-surface-elevated/95 dark:text-slate-300">
+        <div className="mx-auto flex h-[72px] max-w-[1920px] items-center justify-between gap-4 px-5 sm:h-[92px] sm:px-7 lg:px-8">
+          <Link href="/" locale={locale} className="group flex shrink-0 items-center gap-8" aria-label={site.fullName}>
+            <img src="/favicon.svg" width={56} height={56} alt="" className="size-12 sm:size-14" />
+            <span className="hidden text-lg font-bold tracking-tight text-slate-800 dark:text-ink-50 sm:inline sm:text-[22px]">
+              {site.fullName}
             </span>
           </Link>
-          <ThemeToggle
-            switchToLightLabel={t('theme.switchToLight')}
-            switchToDarkLabel={t('theme.switchToDark')}
-          />
-          <a
-            href={site.repo}
-            className="hidden items-center gap-2 rounded-lg bg-brand-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-blue dark:bg-white dark:text-ink-950 dark:hover:bg-brand-cyan sm:flex"
-          >
-            <Github size={16} aria-hidden="true" />
-            {t('hero.githubCta')}
-          </a>
+
+          <nav aria-label={t('nav.ariaLabel')} className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 xl:flex">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                locale={locale}
+                className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-ink-400 transition-colors hover:bg-slate-100 hover:text-ink-950 dark:hover:bg-white/[0.06] dark:hover:text-ink-50"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <a
+              href={site.repo}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={t('hero.githubCta')}
+              title={t('hero.githubCta')}
+              className="inline-flex size-10 items-center justify-center rounded-lg text-ink-400 transition-colors hover:bg-slate-100 hover:text-ink-950 dark:hover:bg-white/[0.06] dark:hover:text-ink-50"
+            >
+              <Github size={19} aria-hidden="true" />
+            </a>
+            <span aria-hidden="true" className="mx-1 hidden h-6 w-px bg-slate-200 sm:block dark:bg-white/15" />
+            <ThemeToggle
+              switchToLightLabel={t('theme.switchToLight')}
+              switchToDarkLabel={t('theme.switchToDark')}
+            />
+            <span aria-hidden="true" className="mx-1 hidden h-6 w-px bg-slate-200 sm:block dark:bg-white/15" />
+            <Link
+              href="/"
+              locale={alternateLocale}
+              className="inline-flex h-10 items-center justify-center rounded-lg px-2 text-sm font-medium text-ink-400 transition-colors hover:bg-slate-100 hover:text-ink-950 dark:hover:bg-white/[0.06] dark:hover:text-ink-50 sm:px-2.5"
+              aria-label={t('nav.switchLocale')}
+              title={t('nav.switchLocale')}
+            >
+              <span
+                aria-hidden="true"
+                className={`relative block h-4 overflow-hidden rounded-[2px] border border-white/20 shadow-sm ${
+                  alternateLocale === 'es' ? 'w-6' : 'w-[30px]'
+                }`}
+              >
+                {alternateLocale === 'es' ? (
+                  <>
+                    <span className="absolute inset-0 bg-[#AA151B]" />
+                    <span className="absolute inset-x-0 top-1/4 h-1/2 bg-[#F1BF00]" />
+                  </>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full"
+                    viewBox="0 0 190 100"
+                    preserveAspectRatio="none"
+                  >
+                    <rect width="190" height="100" fill="#FFFFFF" />
+                    {Array.from({ length: 13 }, (_, index) => (
+                      <rect
+                        key={`stripe-${index}`}
+                        width="190"
+                        height={100 / 13 + 0.1}
+                        y={index * (100 / 13)}
+                        fill={index % 2 === 0 ? '#B22234' : '#FFFFFF'}
+                      />
+                    ))}
+                    <rect width="76" height={(7 / 13) * 100} fill="#3C3B6E" />
+                    {Array.from({ length: 9 }, (_, row) =>
+                      Array.from({ length: row % 2 === 0 ? 6 : 5 }, (_, column) => {
+                        const centerX = (row % 2 === 0 ? 7 : 13) + column * 12.3;
+                        const centerY = 3 + row * 5.95;
+                        const points = Array.from({ length: 10 }, (_, point) => {
+                          const angle = (point * Math.PI) / 5 - Math.PI / 2;
+                          const radius = point % 2 === 0 ? 2.3 : 1;
+                          return `${centerX + radius * Math.cos(angle)},${centerY + radius * Math.sin(angle)}`;
+                        }).join(' ');
+
+                        return <polygon key={`${row}-${column}`} points={points} fill="#FFFFFF" />;
+                      }),
+                    )}
+                  </svg>
+                )}
+              </span>
+            </Link>
+          </div>
         </div>
       </header>
 

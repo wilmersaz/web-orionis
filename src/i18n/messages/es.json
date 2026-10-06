@@ -7,11 +7,14 @@
       "modules": "Módulos",
       "start": "Comenzar",
       "community": "Comunidad",
-      "switchLocale": "View in English"
+      "switchLocale": "View in English",
+      "localeName": "Español"
     },
     "theme": {
       "switchToLight": "Cambiar al tema claro",
-      "switchToDark": "Cambiar al tema oscuro"
+      "switchToDark": "Cambiar al tema oscuro",
+      "light": "Claro",
+      "dark": "Oscuro"
     },
     "hero": {
       "eyebrow": "Framework Python async-first",

@@ -9,6 +9,10 @@
       "community": "Community",
       "switchLocale": "Ver en español"
     },
+    "theme": {
+      "switchToLight": "Switch to light theme",
+      "switchToDark": "Switch to dark theme"
+    },
     "hero": {
       "eyebrow": "An async-first Python framework",
       "titleFirst": "Build without limits.",

@@ -9,6 +9,10 @@
       "community": "Comunidad",
       "switchLocale": "View in English"
     },
+    "theme": {
+      "switchToLight": "Cambiar al tema claro",
+      "switchToDark": "Cambiar al tema oscuro"
+    },
     "hero": {
       "eyebrow": "Framework Python async-first",
       "titleFirst": "Construye sin límites.",

@@ -24,6 +24,7 @@ import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import python from 'highlight.js/lib/languages/python';
 import { CodeSampleTabs, type CodeSampleTab } from './code-sample-tabs';
+import { ThemeToggle } from './theme-toggle';
 import { featureContent, getFeatures, type Accent, type IconName } from '@/content/features';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
@@ -56,7 +57,7 @@ const featureIcons: Record<IconName, LucideIcon> = {
 const accentStyles: Record<Accent, string> = {
   cyan: 'bg-brand-cyan/10 text-brand-cyan ring-brand-cyan/15',
   gold: 'bg-brand-gold/10 text-brand-gold ring-brand-gold/15',
-  blue: 'bg-blue-400/10 text-blue-300 ring-blue-300/15',
+  blue: 'bg-brand-blue/10 text-brand-blue ring-brand-blue/15 dark:bg-blue-400/10 dark:text-blue-300 dark:ring-blue-300/15',
 };
 
 export default async function HomePage({ locale }: { locale: Locale }) {
@@ -162,7 +163,7 @@ print(sender.asHeader())`,
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <main lang={locale} className="relative isolate min-h-screen overflow-hidden bg-ink-950 text-ink-50">
+      <main lang={locale} className="relative isolate min-h-screen overflow-hidden bg-surface-page text-ink-50">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[42rem] bg-hero-radial" />
       <div
         aria-hidden="true"
@@ -172,7 +173,7 @@ print(sender.asHeader())`,
       <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
         <Link href="/" locale={locale} className="group flex items-center gap-3" aria-label={site.fullName}>
           <img src="/favicon.svg" width={40} height={40} alt="logo" />
-          <span className="text-lg font-bold tracking-tight text-white">{site.fullName}</span>
+          <span className="hidden text-lg font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:inline">{site.fullName}</span>
         </Link>
 
         <nav aria-label={t('nav.ariaLabel')} className="hidden items-center gap-7 lg:flex">
@@ -181,7 +182,7 @@ print(sender.asHeader())`,
               key={item.href}
               href={item.href}
               locale={locale}
-              className="text-sm text-ink-300 transition-colors hover:text-white"
+              className="text-sm text-ink-300 transition-colors hover:text-ink-950 dark:hover:text-ink-50"
             >
               {item.label}
             </Link>
@@ -192,7 +193,7 @@ print(sender.asHeader())`,
           <Link
             href="/"
             locale={alternateLocale}
-            className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink-300 transition-colors hover:border-white/20 hover:text-white"
+            className="rounded-lg border border-line/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink-300 transition-colors hover:border-line/20 hover:text-ink-950 dark:hover:text-ink-50"
             aria-label={t('nav.switchLocale')}
           >
             <span
@@ -241,9 +242,13 @@ print(sender.asHeader())`,
               )}
             </span>
           </Link>
+          <ThemeToggle
+            switchToLightLabel={t('theme.switchToLight')}
+            switchToDarkLabel={t('theme.switchToDark')}
+          />
           <a
             href={site.repo}
-            className="hidden items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-brand-cyan sm:flex"
+            className="hidden items-center gap-2 rounded-lg bg-brand-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-blue dark:bg-white dark:text-ink-950 dark:hover:bg-brand-cyan sm:flex"
           >
             <Github size={16} aria-hidden="true" />
             {t('hero.githubCta')}
@@ -257,7 +262,7 @@ print(sender.asHeader())`,
             <span className="size-1.5 rounded-full bg-brand-cyan shadow-[0_0_12px_#4CC9F0]" />
             {t('hero.eyebrow')}
           </div>
-          <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-ink-950 dark:text-ink-50 sm:text-5xl lg:text-6xl">
             {t('hero.titleFirst')}{' '}
             <span className="bg-brand-gradient bg-clip-text text-transparent">
               {t('hero.titleSecond')}
@@ -276,7 +281,7 @@ print(sender.asHeader())`,
             </a>
             <a
               href={site.repo}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/20 hover:bg-white/[0.06]"
+              className="inline-flex items-center gap-2 rounded-xl border border-line/10 bg-surface-overlay/[0.03] px-5 py-3 text-sm font-semibold text-ink-950 transition-colors hover:border-line/20 hover:bg-surface-overlay/[0.06] dark:text-ink-50"
             >
               <Github size={16} aria-hidden="true" />
               {t('hero.githubCta')}
@@ -292,7 +297,7 @@ print(sender.asHeader())`,
         </div>
 
         <div className="animate-fade-in mx-auto w-full min-w-0 max-w-2xl lg:pl-2">
-          <div className="relative w-full min-w-0 max-w-full rounded-2xl border border-white/10 bg-[#091522]/90 p-2 shadow-elevated backdrop-blur-xl">
+          <div className="relative w-full min-w-0 max-w-full rounded-2xl border border-line/10 bg-surface-elevated p-2 shadow-elevated backdrop-blur-xl">
             <div className="absolute -inset-px -z-10 rounded-2xl bg-brand-cyan/10 blur-xl" />
             <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#08111d]">
               <CodeSampleTabs
@@ -314,11 +319,11 @@ print(sender.asHeader())`,
         </div>
       </section>
 
-      <section id="benchmarks" className="scroll-mt-20 border-y border-white/[0.07] bg-white/[0.02]">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-white/[0.07] px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-10">
+      <section id="benchmarks" className="scroll-mt-20 border-y border-line/[0.07] bg-surface-overlay/[0.02]">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-line/[0.07] px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-10">
           {metrics.map((metric) => (
             <div key={metric.label} className="flex items-center justify-center gap-4 py-6 sm:py-8">
-              <span className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{metric.value}</span>
+              <span className="text-3xl font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:text-4xl">{metric.value}</span>
               <span className="max-w-24 text-xs leading-5 text-ink-400 sm:text-sm">{metric.label}</span>
             </div>
           ))}
@@ -329,7 +334,7 @@ print(sender.asHeader())`,
         <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-cyan">{t('features.eyebrow')}</p>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{t('features.title')}</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:text-4xl">{t('features.title')}</h2>
           </div>
           <p className="max-w-lg text-sm leading-6 text-ink-400">{t('features.description')}</p>
         </div>
@@ -342,7 +347,7 @@ print(sender.asHeader())`,
             return (
               <article
                 key={feature.slug}
-                className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.045] sm:p-6"
+                className="group rounded-2xl border border-line/[0.08] bg-surface-elevated p-5 transition-all duration-300 hover:-translate-y-1 hover:border-line/15 hover:bg-surface-overlay/[0.025] sm:p-6"
               >
                 <div className={`mb-5 flex size-11 items-center justify-center rounded-xl ring-1 ${accentStyles[feature.accent]}`}>
                   <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
@@ -350,7 +355,7 @@ print(sender.asHeader())`,
                 <p className="mb-2 font-sans text-[10px] uppercase tracking-[0.16em] text-ink-500">
                   {content.tagline}
                 </p>
-                <h3 className="text-lg font-semibold leading-6 text-white">{content.title}</h3>
+                <h3 className="text-lg font-semibold leading-6 text-ink-950 dark:text-ink-50">{content.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-ink-400">{content.summary}</p>
               </article>
             );
@@ -358,18 +363,18 @@ print(sender.asHeader())`,
         </div>
       </section>
 
-      <section id="modules" className="scroll-mt-16 border-y border-white/[0.07] bg-[#091522]/70">
+      <section id="modules" className="scroll-mt-16 border-y border-line/[0.07] bg-surface-section">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-24">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">{t('modules.eyebrow')}</p>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{t('modules.title')}</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:text-4xl">{t('modules.title')}</h2>
             <p className="mt-4 text-sm leading-6 text-ink-400">{t('modules.description')}</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {modules.map(({ icon: Icon, title, description }) => (
-              <article key={title} className="rounded-2xl border border-white/[0.07] bg-ink-950/60 p-6">
+              <article key={title} className="rounded-2xl border border-line/[0.07] bg-surface-elevated p-6">
                 <Icon size={21} className="mb-5 text-brand-cyan" strokeWidth={1.8} aria-hidden="true" />
-                <h3 className="font-semibold text-white">{title}</h3>
+                <h3 className="font-semibold text-ink-950 dark:text-ink-50">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-ink-400">{description}</p>
               </article>
             ))}
@@ -378,11 +383,11 @@ print(sender.asHeader())`,
       </section>
 
       <section id="getting-started" className="scroll-mt-16 mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-24">
-        <div className="relative overflow-hidden rounded-3xl border border-brand-cyan/15 bg-gradient-to-br from-brand-navy/45 via-[#0b1b2b] to-[#101a2a] px-6 py-10 sm:px-10 sm:py-12 lg:flex lg:items-center lg:justify-between lg:px-14">
+        <div className="callout-panel relative overflow-hidden rounded-3xl border px-6 py-10 sm:px-10 sm:py-12 lg:flex lg:items-center lg:justify-between lg:px-14">
           <div className="pointer-events-none absolute -right-20 -top-28 size-80 rounded-full bg-brand-cyan/10 blur-3xl" />
           <div className="relative max-w-2xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-cyan">{t('start.eyebrow')}</p>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{t('start.title')}</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:text-4xl">{t('start.title')}</h2>
             <p className="mt-4 text-sm leading-6 text-ink-300">{t('start.description')}</p>
           </div>
           <div className="relative mt-7 flex shrink-0 flex-wrap gap-3 lg:mt-0 lg:pl-8">
@@ -395,7 +400,7 @@ print(sender.asHeader())`,
             </a>
             <a
               href={site.apiReference}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/[0.06]"
+              className="inline-flex items-center gap-2 rounded-xl border border-line/15 px-5 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-surface-overlay/[0.06] dark:text-ink-50"
             >
               {t('start.apiCta')}
               <ArrowUpRight size={16} aria-hidden="true" />
@@ -404,14 +409,14 @@ print(sender.asHeader())`,
         </div>
       </section>
 
-      <footer id="community" className="scroll-mt-16 border-t border-white/[0.07]">
+      <footer id="community" className="scroll-mt-16 border-t border-line/[0.07]">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-7 text-sm text-ink-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
           <div className="flex items-center gap-2 text-ink-300">
             <Sparkles size={16} className="text-brand-cyan" aria-hidden="true" />
             <span>{t('footer.madeFor')}</span>
           </div>
           <p>{t('footer.copyright', { year: new Date().getFullYear(), name: site.fullName })}</p>
-          <a href={site.twitter} className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
+          <a href={site.twitter} className="inline-flex items-center gap-1.5 transition-colors hover:text-ink-950 dark:hover:text-ink-50">
             {t('footer.community')}
             <ArrowUpRight size={14} aria-hidden="true" />
           </a>

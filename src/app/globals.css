@@ -16,8 +16,62 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  --surface-page: 248 250 252;
+  --surface-elevated: 255 255 255;
+  --surface-section: 241 245 249;
+  --surface-overlay: 15 23 42;
+  --line: 15 23 42;
+  --text-primary: #0f172a;
+  --selection-bg: rgba(8, 126, 164, 0.2);
+  --selection-text: #0f172a;
+  --brand-cyan: #087ea4;
+  --brand-cyan-soft: #075985;
+  --brand-gold: #a16207;
+  --brand-gold-soft: #854d0e;
+  --callout-start: #dbeafe;
+  --callout-middle: #eff6ff;
+  --callout-end: #e0f2fe;
+  --ink-50: 15 23 42;
+  --ink-100: 30 41 59;
+  --ink-200: 51 65 85;
+  --ink-300: 71 85 105;
+  --ink-400: 100 116 139;
+  --ink-500: 100 116 139;
+  --ink-600: 71 85 105;
+  --ink-700: 51 65 85;
+  --ink-800: 30 41 59;
+  --ink-900: 15 23 42;
   --font-sans: var(--font-titillium-web), "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.dark {
+  color-scheme: dark;
+  --surface-page: 6 11 21;
+  --surface-elevated: 9 21 34;
+  --surface-section: 9 21 34;
+  --surface-overlay: 255 255 255;
+  --line: 255 255 255;
+  --text-primary: #f8fafc;
+  --selection-bg: rgba(76, 201, 240, 0.3);
+  --selection-text: #ffffff;
+  --brand-cyan: #4cc9f0;
+  --brand-cyan-soft: #a8e5f8;
+  --brand-gold: #f4c430;
+  --brand-gold-soft: #fbe7a1;
+  --callout-start: #0b2a48;
+  --callout-middle: #0b1b2b;
+  --callout-end: #101a2a;
+  --ink-50: 248 250 252;
+  --ink-100: 241 245 249;
+  --ink-200: 226 232 240;
+  --ink-300: 203 213 225;
+  --ink-400: 148 163 184;
+  --ink-500: 100 116 139;
+  --ink-600: 71 85 105;
+  --ink-700: 51 65 85;
+  --ink-800: 30 41 59;
+  --ink-900: 15 23 42;
 }
 
 html {
@@ -26,20 +80,38 @@ html {
 
 body {
   min-height: 100vh;
-  background: #060b15;
-  color: #f8fafc;
+  background: rgb(var(--surface-page));
+  color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: rgba(76, 201, 240, 0.3);
-  color: #fff;
+  background: var(--selection-bg);
+  color: var(--selection-text);
 }
 
 a:focus-visible {
-  outline: 2px solid #4cc9f0;
+  outline: 2px solid var(--brand-cyan);
   outline-offset: 4px;
+}
+
+.callout-panel {
+  border-color: color-mix(in srgb, var(--brand-cyan), transparent 75%);
+  background: linear-gradient(
+    120deg,
+    var(--callout-start) 0%,
+    var(--callout-middle) 52%,
+    var(--callout-end) 100%
+  );
+}
+
+.light .bg-hero-radial {
+  background-image: radial-gradient(
+    60% 60% at 50% 0%,
+    rgba(8, 126, 164, 0.14) 0%,
+    rgba(219, 234, 254, 0) 70%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

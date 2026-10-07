@@ -6,7 +6,6 @@
       "benchmarks": "Rendimiento",
       "modules": "Módulos",
       "start": "Comenzar",
-      "community": "Comunidad",
       "switchLocale": "View in English",
       "localeName": "Español"
     },
@@ -32,6 +31,9 @@
       "codeCaption": "Ejemplos de MCP, consola y correo"
     },
     "metrics": {
+      "title": "Rendimiento en cifras",
+      "subtitle": "Más capacidad. Menos espera.",
+      "description": "Un motor de alto rendimiento que procesa más solicitudes y mantiene una latencia mínima.",
       "requestsValue": "455k+",
       "requestsLabel": "solicitudes por segundo",
       "latencyValue": "< 2 ms",
@@ -42,7 +44,8 @@
     "features": {
       "eyebrow": "Diseñado para producción",
       "title": "Todo funciona mejor en conjunto.",
-      "description": "Un conjunto cohesivo de capacidades permite crear, probar y escalar sin unir una docena de herramientas desconectadas."
+      "description": "Un conjunto cohesivo de capacidades permite crear, probar y escalar sin unir una docena de herramientas desconectadas.",
+      "docsLink": "Consultar documentación"
     },
     "modules": {
       "eyebrow": "Un conjunto de herramientas cohesivo",

@@ -37,6 +37,141 @@ const syntaxHighlighter = hljs.newInstance();
 syntaxHighlighter.registerLanguage('bash', bash);
 syntaxHighlighter.registerLanguage('python', python);
 
+const lightModernControlKeywords = new Set([
+  'as',
+  'assert',
+  'await',
+  'break',
+  'case',
+  'continue',
+  'del',
+  'elif',
+  'else',
+  'except',
+  'finally',
+  'for',
+  'from',
+  'if',
+  'import',
+  'lazy',
+  'match',
+  'pass',
+  'raise',
+  'return',
+  'try',
+  'while',
+  'with',
+  'yield',
+]);
+
+const lightModernStorageKeywords = new Set([
+  'async',
+  'class',
+  'def',
+  'global',
+  'lambda',
+  'nonlocal',
+]);
+
+const lightModernLogicalOperators = new Set(['and', 'in', 'is', 'not', 'or']);
+
+const lightModernBuiltinTypes = new Set([
+  'bool',
+  'bytearray',
+  'bytes',
+  'classmethod',
+  'complex',
+  'dict',
+  'enumerate',
+  'filter',
+  'float',
+  'frozendict',
+  'frozenset',
+  'int',
+  'list',
+  'map',
+  'memoryview',
+  'object',
+  'property',
+  'range',
+  'reversed',
+  'set',
+  'slice',
+  'staticmethod',
+  'str',
+  'super',
+  'tuple',
+  'type',
+  'zip',
+]);
+
+function styleUnclassifiedPythonCalls(highlightedCode: string) {
+  const spans = /<span class="([^"]+)">|<\/span>|([^<]+)/g;
+  const activeScopes: string[] = [];
+  let styledCode = '';
+
+  for (const match of highlightedCode.matchAll(spans)) {
+    const [markup, openedScope, text] = match;
+
+    if (openedScope) {
+      activeScopes.push(openedScope);
+      styledCode += markup;
+      continue;
+    }
+
+    if (markup === '</span>') {
+      activeScopes.pop();
+      styledCode += markup;
+      continue;
+    }
+
+    if (text === undefined) continue;
+
+    const isProtectedText = activeScopes.some(
+      (scope) => scope === 'hljs-string' || scope === 'hljs-comment' || scope === 'hljs-meta',
+    );
+
+    styledCode += isProtectedText
+      ? text
+      : text.replace(
+          /(^|[^A-Za-z0-9_])([A-Za-z_][A-Za-z0-9_]*)(?=\s*\()/g,
+          (_match, prefix: string, name: string) => {
+            const scope = /^[A-Z]/.test(name) ? 'hljs-title class_' : 'hljs-title function_';
+            return `${prefix}<span class="${scope}">${name}</span>`;
+          },
+        );
+  }
+
+  return styledCode;
+}
+
+function applyLightModernPythonScopes(highlightedCode: string) {
+  const scopedCode = highlightedCode
+    .replace(
+      /<span class="hljs-keyword">([A-Za-z_][A-Za-z0-9_]*)<\/span>/g,
+      (markup, token: string) => {
+        const scope = lightModernControlKeywords.has(token)
+          ? 'vscode-control-flow'
+          : lightModernStorageKeywords.has(token)
+            ? 'vscode-storage'
+            : lightModernLogicalOperators.has(token)
+              ? 'vscode-logical-operator'
+              : undefined;
+
+        return scope ? `<span class="hljs-keyword ${scope}">${token}</span>` : markup;
+      },
+    )
+    .replace(
+      /<span class="hljs-built_in">([A-Za-z_][A-Za-z0-9_]*)<\/span>/g,
+      (markup, token: string) =>
+        lightModernBuiltinTypes.has(token)
+          ? `<span class="hljs-built_in vscode-type">${token}</span>`
+          : markup,
+    );
+
+  return styleUnclassifiedPythonCalls(scopedCode);
+}
+
 const featureIcons: Record<IconName, LucideIcon> = {
   server: Server,
   layers: Layers,
@@ -69,6 +204,7 @@ export default async function HomePage({ locale }: { locale: Locale }) {
     {
       id: 'mcp',
       label: 'MCP',
+      fileName: 'mcp_server.py',
       code: `from orionis.mcp import McpResponse, Server, Tool, ToolAnnotations
 from orionis.mcp.server.compiler import compile_server
 from orionis.schemas import Schema
@@ -95,6 +231,7 @@ assert McpResponse.text("ready").content[0].text == "ready"`,
     {
       id: 'console-command',
       label: 'Console Command',
+      fileName: 'greet_command.py',
       code: `from orionis.console import Argument
 from orionis.console.base import BaseCommand
 
@@ -112,6 +249,7 @@ class GreetCommand(BaseCommand):
     {
       id: 'mail',
       label: 'Mail',
+      fileName: 'mail_example.py',
       code: `from orionis.mail import Address, Content, Envelope
 
 sender = Address("notifications@example.com", "Example App")
@@ -128,9 +266,12 @@ print(sender.asHeader())`,
     },
   ].map((tab) => ({
     ...tab,
-    highlightedCode: syntaxHighlighter.highlight(tab.code, { language: 'python' }).value,
+    highlightedCode: applyLightModernPythonScopes(
+      syntaxHighlighter.highlight(tab.code, { language: 'python' }).value,
+    ),
   }));
   const docsUrl = site.docs.replace('/en/', `/${locale}/`);
+  const docsOrigin = new URL(site.docs).origin;
   const alternateLocale = locale === 'en' ? 'es' : 'en';
 
   const navigation = nav.map((item) => ({
@@ -171,8 +312,8 @@ print(sender.asHeader())`,
         className="pointer-events-none absolute -right-48 top-72 -z-10 h-96 w-96 rounded-full bg-brand-blue/10 blur-3xl"
       />
 
-      <header className="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/95 text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-white/[0.08] dark:bg-surface-elevated/95 dark:text-slate-300">
-        <div className="mx-auto flex h-[72px] max-w-[1920px] items-center justify-between gap-4 px-5 sm:h-[92px] sm:px-7 lg:px-8">
+      <header className="z-40 w-full border-b border-slate-200/90 bg-white/95 text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-white/[0.08] dark:bg-surface-elevated/95 dark:text-slate-300 lg:fixed lg:inset-x-0 lg:top-0">
+        <div className="mx-auto flex h-[72px] max-w-[1920px] items-center justify-between gap-4 px-5 sm:h-[73px] sm:px-7 lg:px-8">
           <Link href="/" locale={locale} className="group flex shrink-0 items-center gap-8" aria-label={site.fullName}>
             <img src="/favicon.svg" width={56} height={56} alt="" className="size-12 sm:size-14" />
             <span className="hidden text-lg font-bold tracking-tight text-slate-800 dark:text-ink-50 sm:inline sm:text-[22px]">
@@ -267,13 +408,15 @@ print(sender.asHeader())`,
         </div>
       </header>
 
-      <section className="mx-auto grid grid-cols-1 max-w-7xl items-center gap-14 px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-28 lg:pt-24">
+      <div aria-hidden="true" className="hidden h-[92px] lg:block" />
+
+      <section className="mx-auto grid grid-cols-1 max-w-7xl items-center gap-14 px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[minmax(30rem,1fr)_minmax(0,3fr)] lg:px-10 lg:pb-28 lg:pt-24">
         <div className="animate-fade-up min-w-0">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/[0.07] px-3.5 py-2 text-xs font-medium text-brand-cyanSoft">
             <span className="size-1.5 rounded-full bg-brand-cyan shadow-[0_0_12px_#4CC9F0]" />
             {t('hero.eyebrow')}
           </div>
-          <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-ink-950 dark:text-ink-50 sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-ink-950 dark:text-ink-50 sm:text-5xl">
             {t('hero.titleFirst')}{' '}
             <span className="bg-brand-gradient bg-clip-text text-transparent">
               {t('hero.titleSecond')}
@@ -307,19 +450,24 @@ print(sender.asHeader())`,
           </div>
         </div>
 
-        <div className="animate-fade-in mx-auto w-full min-w-0 max-w-2xl lg:pl-2">
-          <div className="relative w-full min-w-0 max-w-full rounded-2xl border border-line/10 bg-surface-elevated p-2 shadow-elevated backdrop-blur-xl">
-            <div className="absolute -inset-px -z-10 rounded-2xl bg-brand-cyan/10 blur-xl" />
-            <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#08111d]">
-              <CodeSampleTabs
-                tabs={codeTabs}
-                tabsLabel={t('hero.codeTabsLabel')}
-                copyLabel={t('hero.copyCode')}
-                copiedLabel={t('hero.codeCopied')}
-              />
-              <div className="flex items-center justify-between border-t border-white/[0.06] px-5 py-3 text-[11px] text-ink-500 sm:px-7">
-                <span>{t('hero.codeCaption')}</span>
-                <span className="font-sans">Python</span>
+        <div className="animate-fade-in w-full min-w-0 max-w-none lg:pl-2">
+          <div className="relative isolate w-full min-w-0 max-w-full">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-blue-200/60 via-brand-cyan/10 to-transparent blur-2xl dark:from-brand-cyan/15 dark:via-brand-blue/10"
+            />
+            <div className="rounded-2xl border border-blue-200/80 bg-white/85 p-1.5 shadow-[0_26px_70px_-38px_rgba(37,99,235,0.38)] backdrop-blur-xl dark:border-brand-cyan/15 dark:bg-surface-elevated/90 dark:shadow-elevated">
+              <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-slate-200/90 bg-white dark:border-white/[0.08] dark:bg-[#0b1420]">
+                <CodeSampleTabs
+                  tabs={codeTabs}
+                  tabsLabel={t('hero.codeTabsLabel')}
+                  copyLabel={t('hero.copyCode')}
+                  copiedLabel={t('hero.codeCopied')}
+                />
+                <div className="flex items-center justify-between border-t border-slate-200/80 bg-slate-50/80 px-4 py-2.5 text-[11px] text-slate-500 dark:border-white/[0.08] dark:bg-slate-900/35 dark:text-slate-400 sm:px-6">
+                  <span className="truncate">{t('hero.codeCaption')}</span>
+                  <span className="ml-4 shrink-0 font-mono uppercase tracking-[0.12em]">Python</span>
+                </div>
               </div>
             </div>
           </div>
@@ -330,7 +478,25 @@ print(sender.asHeader())`,
         </div>
       </section>
 
-      <section id="benchmarks" className="scroll-mt-20 border-y border-line/[0.07] bg-surface-overlay/[0.02]">
+      <section
+        id="benchmarks"
+        aria-labelledby="benchmarks-title"
+        className="scroll-mt-20 border-y border-line/[0.07] bg-surface-overlay/[0.02]"
+      >
+        <div className="mx-auto max-w-7xl px-5 pb-6 pt-12 text-center sm:px-8 lg:px-10">
+          <h2
+            id="benchmarks-title"
+            className="text-3xl font-bold tracking-tight text-ink-950 dark:text-ink-50 sm:text-4xl"
+          >
+            {t('metrics.title')}
+          </h2>
+          <p className="mt-3 text-lg font-semibold text-brand-cyan sm:text-xl">
+            {t('metrics.subtitle')}
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-ink-400 sm:text-base">
+            {t('metrics.description')}
+          </p>
+        </div>
         <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-line/[0.07] px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-10">
           {metrics.map((metric) => (
             <div key={metric.label} className="flex items-center justify-center gap-4 py-6 sm:py-8">
@@ -368,6 +534,15 @@ print(sender.asHeader())`,
                 </p>
                 <h3 className="text-lg font-semibold leading-6 text-ink-950 dark:text-ink-50">{content.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-ink-400">{content.summary}</p>
+                <a
+                  href={new URL(`/${locale}${feature.docsPath}`, docsOrigin).href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-cyan transition-colors hover:text-brand-cyanSoft"
+                >
+                  {t('features.docsLink')}
+                  <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
               </article>
             );
           })}

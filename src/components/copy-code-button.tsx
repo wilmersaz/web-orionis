@@ -36,7 +36,7 @@ export function CopyCodeButton({ code, label, copiedLabel }: CopyCodeButtonProps
       onClick={copyCode}
       aria-label={copied ? copiedLabel : label}
       title={copied ? copiedLabel : label}
-      className="rounded-md p-1.5 text-ink-500 transition-colors hover:bg-white/[0.06] hover:text-brand-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan/60"
+      className="shrink-0 rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-brand-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan/60 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-brand-cyan"
     >
       <Icon size={15} aria-hidden="true" />
     </button>

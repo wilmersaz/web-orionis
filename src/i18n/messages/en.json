@@ -6,8 +6,7 @@
       "benchmarks": "Performance",
       "modules": "Modules",
       "start": "Get started",
-      "community": "Community",
-      "switchLocale": "Ver en español",
+      "switchLocale": "Ver en Español",
       "localeName": "English"
     },
     "theme": {
@@ -32,6 +31,9 @@
       "codeCaption": "MCP, console, and mail examples"
     },
     "metrics": {
+      "title": "Performance in numbers",
+      "subtitle": "More capacity. Less waiting.",
+      "description": "A high-performance engine that handles more requests while keeping latency low.",
       "requestsValue": "455k+",
       "requestsLabel": "requests per second",
       "latencyValue": "< 2 ms",
@@ -42,7 +44,8 @@
     "features": {
       "eyebrow": "Made for production",
       "title": "Everything works better together.",
-      "description": "A cohesive set of capabilities gives teams room to build, test and scale without stitching together a dozen disconnected tools."
+      "description": "A cohesive set of capabilities gives teams room to build, test and scale without stitching together a dozen disconnected tools.",
+      "docsLink": "Read documentation"
     },
     "modules": {
       "eyebrow": "One cohesive toolkit",

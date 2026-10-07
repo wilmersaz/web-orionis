@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { Titillium_Web } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
-import 'highlight.js/styles/monokai.css';
 
 const titilliumWeb = Titillium_Web({
   subsets: ['latin'],

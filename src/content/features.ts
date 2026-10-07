@@ -36,6 +36,7 @@ export interface FeatureContent {
 
 export interface Feature {
   slug: string;
+  docsPath: string;
   order: number;
   icon: IconName;
   accent: Accent;
@@ -45,6 +46,7 @@ export interface Feature {
 export const features: Feature[] = [
   {
     slug: 'rust-powered-http-core',
+    docsPath: '/http/overview/#supported-protocols',
     order: 1,
     icon: 'server',
     accent: 'cyan',
@@ -91,6 +93,7 @@ async def health() -> dict[str, str]:
   },
   {
     slug: 'clean-scalable-architecture',
+    docsPath: '/architecture/request-lifecycle/',
     order: 2,
     icon: 'layers',
     accent: 'blue',
@@ -137,6 +140,7 @@ class Authenticate:
   },
   {
     slug: 'extreme-throughput',
+    docsPath: '/http/overview/#enterprise-class-performance',
     order: 3,
     icon: 'gauge',
     accent: 'gold',
@@ -181,6 +185,7 @@ class Authenticate:
   },
   {
     slug: 'native-test-suite',
+    docsPath: '/testing/testing-overview/',
     order: 4,
     icon: 'flask',
     accent: 'cyan',
@@ -227,6 +232,7 @@ class HealthTest(TestCase):
   },
   {
     slug: 'reactor-cli',
+    docsPath: '/console/reactor/',
     order: 5,
     icon: 'terminal',
     accent: 'gold',
@@ -267,6 +273,7 @@ $ orionis test --parallel`,
   },
   {
     slug: 'declarative-configuration',
+    docsPath: '/architecture/request-lifecycle/#1-bootstrapapppy',
     order: 6,
     icon: 'fileCog',
     accent: 'blue',
@@ -321,6 +328,7 @@ def create_app() -> Application:
   },
   {
     slug: 'async-first',
+    docsPath: '/introduction/prologue/#el-framework-async-first-que-python-nunca-tuvo',
     order: 7,
     icon: 'workflow',
     accent: 'cyan',
@@ -331,9 +339,9 @@ def create_app() -> Application:
         summary:
           'Designed from the ground up around async/await — not bolted on. Routing, dependency injection and middleware are asynchronous by default, keeping average latency below 2 ms.',
         bullets: [
-          'Async routing, middleware and dependency resolution.',
-          'No blocking calls hidden inside the request lifecycle.',
-          'Background tasks and queues share the same event loop.',
+          'Built from the ground up around async/await, not retrofitted or optional.',
+          'Routing, middleware, and dependency injection are natively asynchronous.',
+          'One framework for APIs, web apps, sockets, queues, jobs, scheduled tasks, and CLI.',
         ],
         code: `@app.get("/users/{user_id}")
 async def show(user_id: int, repo: UserRepository) -> JSON:
@@ -348,9 +356,9 @@ async def show(user_id: int, repo: UserRepository) -> JSON:
         summary:
           'Diseñado desde cero en torno a async/await, no como una característica añadida. El enrutamiento, la inyección de dependencias y el middleware son asíncronos por defecto, manteniendo una latencia promedio por debajo de 2 ms.',
         bullets: [
-          'Enrutamiento, middleware y resolución de dependencias asíncronos.',
-          'Sin llamadas bloqueantes ocultas en el ciclo de la petición.',
-          'Tareas de fondo y colas comparten el mismo event loop.',
+          'Diseñado desde cero en torno a async/await, no añadido después ni opcional.',
+          'El enrutamiento, el middleware y la inyección de dependencias son asíncronos de forma nativa.',
+          'Un framework para APIs, aplicaciones web, sockets, colas, jobs, tareas programadas y CLI.',
         ],
         code: `@app.get("/users/{user_id}")
 async def show(user_id: int, repo: UserRepository) -> JSON:
@@ -363,6 +371,7 @@ async def show(user_id: int, repo: UserRepository) -> JSON:
   },
   {
     slug: 'security-by-design',
+    docsPath: '/services/encrypter/',
     order: 8,
     icon: 'shieldCheck',
     accent: 'gold',
@@ -407,6 +416,7 @@ Hash.make(password)          # Argon2id`,
   },
   {
     slug: 'ioc-container',
+    docsPath: '/architecture/service-container/',
     order: 9,
     icon: 'box',
     accent: 'blue',
@@ -451,6 +461,7 @@ async def store(
   },
   {
     slug: 'facades',
+    docsPath: '/architecture/facades/',
     order: 10,
     icon: 'blocks',
     accent: 'cyan',

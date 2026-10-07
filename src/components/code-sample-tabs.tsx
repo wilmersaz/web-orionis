@@ -1,11 +1,13 @@
 'use client';
 
 import { useRef, useState, type KeyboardEvent } from 'react';
+import { Code2 } from 'lucide-react';
 import { CopyCodeButton } from './copy-code-button';
 
 export interface CodeSampleTab {
   id: string;
   label: string;
+  fileName?: string;
   code: string;
   highlightedCode: string;
 }
@@ -49,17 +51,13 @@ export function CodeSampleTabs({ tabs, tabsLabel, copyLabel, copiedLabel }: Code
   }
 
   return (
-    <>
-      <div className="flex min-w-0 items-stretch border-b border-white/[0.06] bg-[#0b1724]">
+    <div className="code-editor min-w-0">
+      <div className="flex min-w-0 items-center justify-between gap-2 border-b border-slate-200/80 bg-white/90 px-3 py-3 dark:border-white/[0.08] dark:bg-slate-950/20 sm:px-4">
         <div
-          className="hidden shrink-0 items-center gap-2 border-r border-white/[0.06] px-4 sm:flex"
-          aria-hidden="true"
+          role="tablist"
+          aria-label={tabsLabel}
+          className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto rounded-lg border border-slate-200/80 bg-slate-50 p-1 dark:border-white/[0.08] dark:bg-slate-900/70"
         >
-          <span className="size-2.5 rounded-full bg-[#FF6B6B]/80" />
-          <span className="size-2.5 rounded-full bg-brand-gold/80" />
-          <span className="size-2.5 rounded-full bg-[#5DD39E]/80" />
-        </div>
-        <div role="tablist" aria-label={tabsLabel} className="flex min-w-0 flex-1 overflow-x-auto">
           {tabs.map((tab, index) => {
             const isSelected = tab.id === activeTab.id;
 
@@ -77,10 +75,10 @@ export function CodeSampleTabs({ tabs, tabsLabel, copyLabel, copiedLabel }: Code
                 tabIndex={isSelected ? 0 : -1}
                 onClick={() => setActiveTabId(tab.id)}
                 onKeyDown={(event) => handleTabKeyDown(event, index)}
-                className={`shrink-0 border-b-2 px-3 py-3 text-xs font-semibold whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-cyan/70 sm:px-4 ${
+                className={`shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-cyan/70 sm:px-4 ${
                   isSelected
-                    ? 'border-brand-cyan bg-[#08111d] text-white'
-                    : 'border-transparent text-ink-400 hover:bg-white/[0.03] hover:text-white'
+                    ? 'bg-white text-slate-900 shadow-[0_1px_3px_rgba(15,23,42,0.12)] ring-1 ring-slate-200/80 dark:bg-slate-700 dark:text-white dark:ring-white/10'
+                    : 'text-slate-500 hover:bg-white/70 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -88,10 +86,19 @@ export function CodeSampleTabs({ tabs, tabsLabel, copyLabel, copiedLabel }: Code
             );
           })}
         </div>
-        <div className="flex shrink-0 items-center border-l border-white/[0.06] px-2">
-          <CopyCodeButton code={activeTab.code} label={copyLabel} copiedLabel={copiedLabel} />
+        <CopyCodeButton code={activeTab.code} label={copyLabel} copiedLabel={copiedLabel} />
+      </div>
+
+      <div className="flex min-w-0 items-center border-b border-slate-200/80 bg-slate-50/80 dark:border-white/[0.08] dark:bg-slate-900/35">
+        <div className="flex min-w-0 items-center gap-2 border-r border-slate-200/80 bg-white px-4 py-2.5 dark:border-white/[0.08] dark:bg-slate-950/35">
+          {/* <Code2 size={15} className="shrink-0 text-brand-cyan" aria-hidden="true" /> */}
+          <img src="/python-logo.svg" alt="python" className="shrink-0" width="15" height="15" />
+          <span className="truncate font-mono text-[11px] font-medium text-slate-700 dark:text-slate-200">
+            {activeTab.fileName ?? activeTab.label}
+          </span>
         </div>
       </div>
+
       {tabs.map((tab) => {
         const isSelected = tab.id === activeTab.id;
 
@@ -106,20 +113,16 @@ export function CodeSampleTabs({ tabs, tabsLabel, copyLabel, copiedLabel }: Code
               isSelected ? '' : 'hidden'
             }`}
           >
-            <pre
-              className={`min-h-52 min-w-0 max-w-full overflow-x-auto bg-[#272822] px-5 py-7 text-[13px] leading-7 sm:px-7 sm:text-sm ${
-                tab.id === 'console-command' ? 'font-monoid' : 'font-sans'
-              }`}
-            >
+            <pre className="min-h-[18rem] min-w-0 max-w-full overflow-x-auto bg-white px-5 py-6 font-mono text-[12px] leading-4 text-[#3B3B3B] sm:px-7 sm:py-7 sm:text-[13px]">
               <code
                 lang="python"
-                className="hljs block max-w-full"
+                className="hljs block max-w-full !bg-transparent !p-0"
                 dangerouslySetInnerHTML={{ __html: tab.highlightedCode }}
               />
             </pre>
           </div>
         );
       })}
-    </>
+    </div>
   );
 }

@@ -17,5 +17,4 @@ export const nav: { key: string; href: string }[] = [
   { key: 'benchmarks', href: '/#benchmarks' },
   { key: 'modules', href: '/#modules' },
   { key: 'start', href: '/#getting-started' },
-  { key: 'community', href: '/#community' },
 ];

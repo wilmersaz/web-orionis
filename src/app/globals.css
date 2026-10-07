@@ -15,6 +15,187 @@
     'Courier New', monospace;
 }
 
+/* VS Code Light Modern editor colors and its inherited Light+ / Light VS token palette. */
+.code-editor {
+  --vscode-light-modern-editor-background: #ffffff;
+  --vscode-light-modern-editor-foreground: #3b3b3b;
+  --vscode-light-modern-comment: #008000;
+  --vscode-light-modern-keyword: #0000ff;
+  --vscode-light-modern-control-flow: #af00db;
+  --vscode-light-modern-function: #795e26;
+  --vscode-light-modern-type: #267f99;
+  --vscode-light-modern-variable: #001080;
+  --vscode-light-modern-constant: #0070c1;
+  --vscode-light-modern-number: #098658;
+  --vscode-light-modern-string: #a31515;
+  --vscode-light-modern-property: #0451a5;
+  --vscode-light-modern-operator: #000000;
+  --vscode-light-modern-invalid: #cd3131;
+  --vscode-light-modern-regexp: #811f3f;
+  --vscode-light-modern-regexp-group: #d16969;
+  --vscode-light-modern-regexp-operator: #ee0000;
+  --vscode-light-modern-tag: #800000;
+  --vscode-light-modern-attribute: #e50000;
+  --vscode-light-modern-embedded: #000000;
+}
+
+.dark .code-editor {
+  --vscode-light-modern-editor-background: #02061733;
+  --vscode-light-modern-embedded: #707070;
+}
+
+.code-editor pre {
+  color: var(--vscode-light-modern-editor-foreground);
+  background-color: var(--vscode-light-modern-editor-background);
+}
+
+.code-editor .hljs {
+  color: var(--vscode-light-modern-editor-foreground);
+  background: transparent;
+}
+
+.code-editor ::selection {
+  color: inherit;
+  background: #add6ff80;
+}
+
+.code-editor .hljs-comment,
+.code-editor .hljs-quote,
+.code-editor .hljs-doctag {
+  color: var(--vscode-light-modern-comment);
+}
+
+.code-editor .hljs-keyword {
+  color: var(--vscode-light-modern-keyword);
+}
+
+.code-editor .hljs-keyword.vscode-control-flow {
+  color: var(--vscode-light-modern-control-flow);
+}
+
+.code-editor .hljs-keyword.vscode-storage,
+.code-editor .hljs-keyword.vscode-logical-operator,
+.code-editor .hljs-variable.language_ {
+  color: var(--vscode-light-modern-keyword);
+}
+
+.code-editor .hljs-string,
+.code-editor .hljs-template-tag,
+.code-editor .hljs-meta .hljs-string {
+  color: var(--vscode-light-modern-string);
+}
+
+.code-editor .hljs-subst {
+  color: var(--vscode-light-modern-embedded);
+}
+
+.code-editor .hljs-number,
+.code-editor .hljs-unit,
+.code-editor .hljs-addition,
+.code-editor .hljs-inserted {
+  color: var(--vscode-light-modern-number);
+}
+
+.code-editor .hljs-literal,
+.code-editor .hljs-char {
+  color: var(--vscode-light-modern-keyword);
+}
+
+.code-editor .hljs-char.escape_,
+.code-editor .hljs-string .hljs-char.escape_,
+.code-editor .hljs-regexp .hljs-escape {
+  color: var(--vscode-light-modern-regexp-operator);
+}
+
+.code-editor .hljs-params,
+.code-editor .hljs-variable,
+.code-editor .hljs-template-variable {
+  color: var(--vscode-light-modern-variable);
+}
+
+.code-editor .hljs-constant,
+.code-editor .hljs-symbol {
+  color: var(--vscode-light-modern-constant);
+}
+
+.code-editor .hljs-title,
+.code-editor .hljs-title.function_,
+.code-editor .hljs-function,
+.code-editor .hljs-built_in,
+.code-editor .hljs-meta {
+  color: var(--vscode-light-modern-function);
+}
+
+.code-editor .hljs-title.class_,
+.code-editor .hljs-title.class_.inherited__,
+.code-editor .hljs-type,
+.code-editor .hljs-property,
+.code-editor .hljs-built_in.vscode-type {
+  color: var(--vscode-light-modern-type);
+}
+
+.code-editor .hljs-attr,
+.code-editor .hljs-bullet,
+.code-editor .hljs-link,
+.code-editor .hljs-changed {
+  color: var(--vscode-light-modern-property);
+}
+
+.code-editor .hljs-operator {
+  color: var(--vscode-light-modern-operator);
+}
+
+.code-editor .hljs-label,
+.code-editor .hljs-regexp .hljs-quantifier {
+  color: var(--vscode-light-modern-embedded);
+}
+
+.code-editor .hljs-attribute,
+.code-editor .hljs-selector-attr {
+  color: var(--vscode-light-modern-attribute);
+}
+
+.code-editor .hljs-tag,
+.code-editor .hljs-name,
+.code-editor .hljs-section,
+.code-editor .hljs-selector-tag,
+.code-editor .hljs-selector-class,
+.code-editor .hljs-selector-id,
+.code-editor .hljs-selector-pseudo {
+  color: var(--vscode-light-modern-tag);
+}
+
+.code-editor .hljs-regexp,
+.code-editor .hljs-regexp .hljs-character-class {
+  color: var(--vscode-light-modern-regexp);
+}
+
+.code-editor .hljs-regexp .hljs-group,
+.code-editor .hljs-regexp .hljs-punctuation {
+  color: var(--vscode-light-modern-regexp-group);
+}
+
+.code-editor .hljs-regexp .hljs-escape,
+.code-editor .hljs-regexp .hljs-alternation {
+  color: var(--vscode-light-modern-regexp-operator);
+}
+
+.code-editor .hljs-invalid {
+  color: var(--vscode-light-modern-invalid);
+}
+
+.code-editor .hljs-deletion {
+  color: var(--vscode-light-modern-string);
+}
+
+.code-editor .hljs-strong {
+  color: #000080;
+}
+
+.code-editor .hljs-emphasis {
+  color: #800080;
+}
+
 :root {
   color-scheme: light;
   --surface-page: 248 250 252;
